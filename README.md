@@ -12,7 +12,7 @@ you will need to install these Perl modules first:
 
 The target date-based directory hierarchy may or may not already exist.  It's
 just fine if it does.  The resulting layout is compatible with shotwell and
-f-spot.  It looks like this: $SOURCE/YYYY/MM/DD
+f-spot.  It looks like this: $TARGET/YYYY/MM/DD
 
 So if you have a source directory like this...
 
