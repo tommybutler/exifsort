@@ -93,7 +93,7 @@ DESCRIPTION:
    derived from the embedded EXIF data in the actual media files themselves.
 
    The directory hierarchy may or may not already exist.  The layout is
-   compatible with shotwell and f-spot.  It looks like this: $SOURCE/YYYY/MM/DD
+   compatible with shotwell and f-spot.  It looks like this: $TARGET/YYYY/MM/DD
 
 ARGUMENTS AND FLAGS:
    -s, --source   Path to the directory that contains the images/movies that
