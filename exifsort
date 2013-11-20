@@ -28,7 +28,7 @@ use File::Basename 'basename';
 
 my $opts =
 {
-   src   => './',
+   src   => undef,
    dest  => undef,
    force => 0,
    test  => undef,
@@ -44,7 +44,7 @@ GetOptions
    'help|h|?' => \$opts->{help},
 ) or die usage();
 
-print usage() and exit if $opts->{help} || ! $opts->{dest};
+print usage() and exit if $opts->{help} || ! $opts->{dest} || ! $opts->{src};
 
 die qq("$opts->{src}" is either not a directory or not writable by you.)
    if defined $opts->{src} && ( ! -w $opts->{src} || ! -d $opts->{src} );
