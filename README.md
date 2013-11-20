@@ -22,7 +22,7 @@ So if you have a source directory like this...
     Dec  2  2012 4056906951_e3108261a4_b.jpg
     Dec  2  2012 ahs st louis trip paddle boat ride.jpg
     Dec  2  2012 bless-vanity-bedroom.jpg
-    Dec  2  2012 dax-pot-on-head.jpg
+    Dec  2  2012 dax-pan-on-head.jpg
     Dec  2  2012 leviathan-pic-lowres-2010-02-04 20.38.25.jpg
     Dec 17  2012 lightsaber hilts.jpg
     Dec  2  2012 peace-love-linux.png
@@ -62,7 +62,7 @@ look like this:
     target/2012/12/02/wp_Helix_Nebula_1920x1200.jpg
     target/2012/12/02/ahs st louis trip paddle boat ride.jpg
     target/2012/12/02/bless-vanity-bedroom.jpg
-    target/2012/12/02/dax-pot-on-head.jpg
+    target/2012/12/02/dax-pan-on-head.jpg
     target/2012/12/02/4056906951_e3108261a4_b.jpg
 
 exifsort is written for Linux specifically, and it isn't recommended that you
