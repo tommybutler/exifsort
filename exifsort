@@ -18,6 +18,7 @@ use File::Copy 'move';
 use Try::Tiny;
 use Getopt::Long;
 use Digest::MD5 'md5_hex';
+use File::Basename 'basename';
 
 # ------------------------------------------------------------
 # THE SETUP
@@ -162,33 +163,33 @@ sub get_exif_date
 
 sub move_file_by_date
 {
-   my ( $file, $date ) = @_;
+   my ( $src_file, $date ) = @_;
 
    my ( $y, $m, $d ) = $date =~ /^(\d+):(\d+):(\d+)/;
 
-   my $dest = sprintf '%d/%02d/%02d', $y, $m, $d;
+   my $date_tree = sprintf '%d/%02d/%02d', $y, $m, $d;
 
-   if ( $opts->{dest} eq '.' || ! length $opts->{dest} )
+   my $dest_dir  = $opts->{dest};
+
+   if ( $dest_dir eq '.' || $dest_dir eq '' )
    {
-      $dest = './' . $dest;
+      $dest_dir = './' . $date_tree;
    }
    else
    {
-      $dest = $opts->{dest} . '/' . $dest;
+      $dest_dir = $dest_dir . '/' . $date_tree;
    }
 
    try
    {
-      mkdir $dest unless -d $dest;
-
-      my $dest_file = join '/', $dest, ( $ftl->atomize_path( $file ) )[ -1 ];
+      my $dest_file = $dest_dir . '/' . basename $src_file;
 
       if ( -e $dest_file && ! $opts->{force} )
       {
          printf qq{!! "%s" ALREADY EXISTS.  WON'T OVERWRITE WITHOUT --force\n},
             $dest_file;
 
-         my $src_sum = md5_hex( $ftl->load_file( $file ) );
+         my $src_sum = md5_hex( $ftl->load_file( $src_file ) );
          my $dst_sum = md5_hex( $ftl->load_file( $dest_file ) );
 
          printf qq{   ...SOURCE: %s\n}, $src_sum;
@@ -200,18 +201,22 @@ sub move_file_by_date
       }
       else
       {
-
-         printf qq{%-80s => TESTING - NOT MOVED TO %s\n}, $file, $dest
+         printf qq{%-80s => TESTING - NOT MOVED TO %s\n}, $src_file, $dest_dir
             and return if $opts->{test};
 
-         move $file, $dest_file or die $!;
+         unless ( -e $dest_dir )
+         {
+            $ftl->make_dir( $dest_dir => { if_not_exists => 1, onfail => 'die' } );
+         }
 
-         printf qq{%-80s => MOVED TO %s\n}, $file, $dest;
+         move $src_file, $dest_file or die $!;
+
+         printf qq{%-80s => MOVED TO %s\n}, $src_file, $dest_dir;
       }
    }
    catch
    {
-      printf qq{%-80s => FAILED TO MOVE FILE!\n}, $file, $y, $m, $d;
+      printf qq{%-80s => FAILED TO MOVE FILE!\n}, $src_file, $y, $m, $d;
 
       warn $_;
    }
