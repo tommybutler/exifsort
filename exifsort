@@ -204,10 +204,8 @@ sub move_file_by_date
          printf qq{%-80s => TESTING - NOT MOVED TO %s\n}, $src_file, $dest_dir
             and return if $opts->{test};
 
-         unless ( -e $dest_dir )
-         {
-            $ftl->make_dir( $dest_dir => { if_not_exists => 1, onfail => 'die' } );
-         }
+         $ftl->make_dir( $dest_dir => { if_not_exists => 1, onfail => 'die' } )
+            unless -e $dest_dir;
 
          move $src_file, $dest_file or die $!;
 
