@@ -4,9 +4,15 @@ exifsort
 exifsort organizes pictures and movies into a date-based directory hierarchy
 derived from the embedded EXIF data in the media files themselves.
 
-The directory hierarchy may or may not already exist.  It's just fine if it
-does.  The resulting layout is compatible with shotwell and f-spot.  It looks
-like this: $SOURCE/YYYY/MM/DD
+exifsort is written in Perl, because Perl is awesome.  In order to run exifsort
+you will need to install these Perl modules first:
+* Image::ExifTool
+* File::Util
+* Try::Tiny
+
+The target date-based directory hierarchy may or may not already exist.  It's
+just fine if it does.  The resulting layout is compatible with shotwell and
+f-spot.  It looks like this: $SOURCE/YYYY/MM/DD
 
 So if you have a source directory like this...
 
