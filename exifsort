@@ -135,10 +135,21 @@ sub get_exif_date
    my $exift = Image::ExifTool->new;
 
    $exift->ExtractInfo( $file );
+   
+   #printf qq{DateTimeOriginal: %s\n}, $exift->GetValue( DateTimeOriginal => $file ) || "";
+   #printf qq{DateAcquired: %s\n}, $exift->GetValue( DateAcquired => $file ) || "";
+   #printf qq{FileModifyDate: %s\n}, $exift->GetValue(FileModifyDate => $file ) || "";
 
    my $date = $exift->GetValue( DateTimeOriginal => $file );
+   
+   $date ||= $exift->GetValue( DateAcquired => $file );
 
    $date ||= $exift->GetValue( FileModifyDate => $file );
+      
+   # Fix bad EXIF dates.
+   unless ( !$date ) {
+      $date =~ s/\//\:/g;
+   }
 
    unless ( $date )
    {
