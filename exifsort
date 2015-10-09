@@ -96,7 +96,7 @@ DESCRIPTION:
    compatible with shotwell and f-spot.  It looks like this: $TARGET/YYYY/MM/DD
 
 ARGUMENTS AND FLAGS:
-   -s, --src   Path to the directory that contains the images/movies that
+   -s, --src      Path to the directory that contains the images/movies that
                   you want to sort into an organized destination directory
 
    -d, --dest     Path to the directory where the date-based organized
