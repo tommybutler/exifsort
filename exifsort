@@ -37,7 +37,7 @@ my $opts =
 
 GetOptions
 (
-   'src|s=s'  => \$opts->{src},
+   'source|s=s'  => \$opts->{src},
    'dest|d=s' => \$opts->{dest},
    'force|f'  => \$opts->{force},
    'test|t'   => \$opts->{test},
@@ -58,6 +58,8 @@ die qq("$opts->{src}" is either not a directory or not writable by you.)
 # program when there might still be files to process
 
 my $ftl = File::Util->new( { onfail => 'warn' } );
+
+$ftl->readlimit( 1024 * (10**9 ) ); # 1 terabyte max read ;-)
 
 # clean up the destination path.  We have to be careful with paths that
 # are simply "." or "./" because when joined to the date-based directory
@@ -135,17 +137,17 @@ sub get_exif_date
    my $exift = Image::ExifTool->new;
 
    $exift->ExtractInfo( $file );
-   
+
    #printf qq{DateTimeOriginal: %s\n}, $exift->GetValue( DateTimeOriginal => $file ) || "";
    #printf qq{DateAcquired: %s\n}, $exift->GetValue( DateAcquired => $file ) || "";
    #printf qq{FileModifyDate: %s\n}, $exift->GetValue(FileModifyDate => $file ) || "";
 
    my $date = $exift->GetValue( DateTimeOriginal => $file );
-   
+
    $date ||= $exift->GetValue( DateAcquired => $file );
 
    $date ||= $exift->GetValue( FileModifyDate => $file );
-      
+
    # Fix bad EXIF dates.
    unless ( !$date ) {
       $date =~ s/\//\:/g;
