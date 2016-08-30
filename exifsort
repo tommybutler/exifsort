@@ -88,7 +88,7 @@ $ftl->list_dir( $opts->{src} => { recurse  => 1, callback => \&move_files } );
 
 sub usage { <<'__USAGE__' }
 USAGE:
-   exifsort --source ./path/to/source/ --dest ./path/to/dest/ --test --force
+   exifsort --src ./path/to/source/ --dest ./path/to/dest/ --test --force
 
 DESCRIPTION:
    exifsort organizes pictures and movies into a date-based directory hierarchy
@@ -98,7 +98,7 @@ DESCRIPTION:
    compatible with shotwell and f-spot.  It looks like this: $TARGET/YYYY/MM/DD
 
 ARGUMENTS AND FLAGS:
-   -s, --source   Path to the directory that contains the images/movies that
+   -s, --src      Path to the directory that contains the images/movies that
                   you want to sort into an organized destination directory
 
    -d, --dest     Path to the directory where the date-based organized
